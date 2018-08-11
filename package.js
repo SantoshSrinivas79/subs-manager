@@ -32,7 +32,7 @@ function configurePackage(api) {
   }
 
   api.use(['deps', 'underscore', 'ejson'], ['client', 'server']);
-  api.use('staringatlights:fast-render@3.0.0', 'client', { weak: true });
+  api.use('staringatlights:fast-render@3.0.4', 'client', { weak: true });
 
   api.add_files([
     'lib/sub_manager.js',
