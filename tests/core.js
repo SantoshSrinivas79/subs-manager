@@ -3,13 +3,12 @@ Tinytest.addAsync('core - init', function(test, done) {
 });
 
 Tinytest.addAsync('core - single subscribe', function(test, done) {
-  var sm = new SubsManager();
-
-  Deps.autorun(function(c) {
-    var status = sm.subscribe('posts');
-    if(status.ready()) {
-      var posts = Posts.find().fetch();
-      test.equal(posts, [{_id: 'one'}]);
+    const sm = new SubsManager();
+    Deps.autorun(function(c) {
+      const status = sm.subscribe('posts');
+      if(status.ready()) {
+        const posts = Posts.find().fetch();
+        test.equal(posts, [{_id: 'one'}]);
 
       sm.clear();
       c.stop();
@@ -19,17 +18,15 @@ Tinytest.addAsync('core - single subscribe', function(test, done) {
 });
 
 Tinytest.addAsync('core - multi subscribe', function(test, done) {
-  var sm = new SubsManager();
-  var subs = {};
-
-  Session.set('sub', 'posts');
+    const sm = new SubsManager();
+    const subs = {};
+    Session.set('sub', 'posts');
 
   Deps.autorun(function(c) {
-    var sub = Session.get('sub');
-    subs[sub] = true;
-    var handler = sm.subscribe(sub);
-
-    if(_.keys(subs).length == 2) {
+      const sub = Session.get('sub');
+      subs[sub] = true;
+      const handler = sm.subscribe(sub);
+      if(_.keys(subs).length === 2) {
       if(handler.ready()) {
         test.equal(Posts.find().count(), 1);
         test.equal(Comments.find().count(), 1);
@@ -47,13 +44,12 @@ Tinytest.addAsync('core - multi subscribe', function(test, done) {
 });
 
 Tinytest.addAsync('core - global ready method - basic usage', function(test, done) {
-  var sm = new SubsManager();
-
-  Deps.autorun(function(c) {
+    const sm = new SubsManager();
+    Deps.autorun(function(c) {
     sm.subscribe('posts');
     if(sm.ready()) {
-      var posts = Posts.find().fetch();
-      test.equal(posts, [{_id: 'one'}]);
+        const posts = Posts.find().fetch();
+        test.equal(posts, [{_id: 'one'}]);
 
       sm.clear();
       c.stop();
@@ -63,16 +59,14 @@ Tinytest.addAsync('core - global ready method - basic usage', function(test, don
 });
 
 Tinytest.addAsync('core - global ready method - and change it - aa', function(test, done) {
-  var sm = new SubsManager();
-  var readyCalledOnce = false;
-
-  Deps.autorun(function(c) {
+    const sm = new SubsManager();
+    let readyCalledOnce = false;
+    Deps.autorun(function(c) {
     sm.subscribe('posts');
-    var readyState = sm.ready();
-
-    if(readyState) {
-      var posts = Posts.find().fetch();
-      test.equal(posts, [{_id: 'one'}]);
+      const readyState = sm.ready();
+      if(readyState) {
+        const posts = Posts.find().fetch();
+        test.equal(posts, [{_id: 'one'}]);
       readyCalledOnce = true;
 
       // with this, ready status became false
@@ -86,23 +80,21 @@ Tinytest.addAsync('core - global ready method - and change it - aa', function(te
 });
 
 Tinytest.addAsync('core - global ready method - initial state', function(test, done) {
-  var sm = new SubsManager();
-  test.equal(sm.ready(), false);
+    const sm = new SubsManager();
+    test.equal(sm.ready(), false);
   done();
 });
 
 Tinytest.addAsync('core - multi subscribe but single collection', function(test, done) {
-  var sm = new SubsManager();
-  var ids = {};
-
-  Session.set('id', 'one');
+    const sm = new SubsManager();
+    const ids = {};
+    Session.set('id', 'one');
 
   Deps.autorun(function(c) {
-    var id = Session.get('id');
-    ids[id] = true;
-    var handler = sm.subscribe('singlePoint', id);
-
-    if(_.keys(ids).length == 2) {
+      const id = Session.get('id');
+      ids[id] = true;
+      const handler = sm.subscribe('singlePoint', id);
+      if(_.keys(ids).length == 2) {
       if(handler.ready()) {
         test.equal(Points.find().count(), 2);
         c.stop();
@@ -117,17 +109,16 @@ Tinytest.addAsync('core - multi subscribe but single collection', function(test,
 });
 
 Tinytest.addAsync('core - resetting', function(test, done) {
-  var sm = new SubsManager();
-  var allowed = false;
-
-  Meteor.call('postsOnlyAllowed.allow', false, function() {
+    const sm = new SubsManager();
+    let allowed = false;
+    Meteor.call('postsOnlyAllowed.allow', false, function() {
     Deps.autorun(function(c) {
-      var status = sm.subscribe('postsOnlyAllowed');
-      var readyState = status.ready();
-
+        const status = sm.subscribe('postsOnlyAllowed');
+        const readyState = status.ready();
+        let posts;
       if(!allowed) {
         if(readyState) {
-          var posts = PostsOnlyAllowed.find().fetch();
+           posts = PostsOnlyAllowed.find().fetch();
           test.equal(posts, []);
           allowed = true;
           Meteor.call('postsOnlyAllowed.allow', true, function() {
@@ -135,8 +126,8 @@ Tinytest.addAsync('core - resetting', function(test, done) {
           });
         }
       } else {
-        var posts = PostsOnlyAllowed.find().fetch();
-        if(posts.length == 1) {
+         posts = PostsOnlyAllowed.find().fetch();
+        if(posts.length === 1) {
           test.equal(posts, [{_id: 'one'}]);
 
           sm.clear();
@@ -149,13 +140,12 @@ Tinytest.addAsync('core - resetting', function(test, done) {
 });
 
 Tinytest.addAsync('core - clear subscriptions', function(test, done) {
-  var sm = new SubsManager();
-
-  Deps.autorun(function(c) {
-    var status = sm.subscribe('posts');
-    if(status.ready()) {
-      var posts = Posts.find().fetch();
-      test.equal(posts, [{_id: 'one'}]);
+    const sm = new SubsManager();
+    Deps.autorun(function(c) {
+      const status = sm.subscribe('posts');
+      if(status.ready()) {
+        const posts = Posts.find().fetch();
+        test.equal(posts, [{_id: 'one'}]);
 
       sm.clear();
       c.stop();
@@ -164,8 +154,8 @@ Tinytest.addAsync('core - clear subscriptions', function(test, done) {
   });
 
   function checkPostsAgain() {
-    var postCount = Posts.find({_id: "one"}).count();
-    test.equal(postCount, 0);
+      const postCount = Posts.find({_id: "one"}).count();
+      test.equal(postCount, 0);
     done();
   }
 });

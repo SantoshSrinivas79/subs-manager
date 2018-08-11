@@ -36,11 +36,11 @@ Then instead of subscribing to `Meteor.subscribe()`, use `PostSubs.subscribe()`.
 
 ~~~js
 Template.blogPost.onCreated(function() {
-    var self = this;
+    const self = this;
     self.ready = new ReactiveVar();
     self.autorun(function() {
-        var postId = FlowRouter.getQueryParam('postId');
-        var handle = PostSubs.subscribe('singlePost', postId);
+        const postId = FlowRouter.getQueryParam('postId');
+        const handle = PostSubs.subscribe('singlePost', postId);
         self.ready.set(handle.ready());
     });
 });
@@ -68,7 +68,7 @@ Sometime, we need to re-run our subscriptions due to various reasons.
 In those situations, you can try to reset Subscription Manager.
 
 ~~~js
-var subs = new SubsManager();
+const subs = new SubsManager();
 
 // later in some other place
 subs.reset();
@@ -79,7 +79,7 @@ subs.reset();
 In some cases, we need to clear the all the subscriptions we cache. So, this is how we can do it.
 
 ~~~js
-var subs = new SubsManager();
+const subs = new SubsManager();
 
 // later in some other place
 subs.clear();
@@ -92,7 +92,7 @@ Since now you are caching subscriptions, the Meteor server will also cache all y
 But, you can control the caching behavior. Here's how to do it.
 
 ~~~js
-var subs = new SubsManager({
+const subs = new SubsManager({
     // maximum number of cache subscriptions
     cacheLimit: 10,
     // any subscription will be expire after 5 minute, if it's not subscribed again
@@ -117,7 +117,7 @@ If you need more control over caching, you can create separate Subscription Mana
 You can also check the ready status of all the subscriptions at once like this:
 
 ~~~js
-var subs = new SubsManager();
+const subs = new SubsManager();
 subs.subscribe('postList');
 subs.subscribe('singlePost', 'id1');
 
