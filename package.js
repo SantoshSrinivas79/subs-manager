@@ -2,7 +2,7 @@ Package.describe({
   summary: 'Subscriptions Manager for Meteor',
   version: '1.6.4_3',
   git: 'https://github.com/simsim0709/subs-manager.git',
-  name: 'thelohoadmin:subs-manager',
+  name: 'subs-manager',
 });
 
 Package.on_use(function (api) {
