@@ -1,4 +1,7 @@
-# SubsManager [![Build Status](https://travis-ci.org/kadirahq/subs-manager.svg?branch=master)](https://travis-ci.org/kadirahq/subs-manager)
+# SubsManager [![Build Status](https://travis-ci.org/thetcr/subs-manager.svg?branch=master)](https://travis-ci.org/kadirahq/subs-manager)
+
+####  Subscriptions Manager for Meteor
+This is a continuation of the original kadirahq subs-manager.
 
 ####  Subscriptions Manager for Meteor
 

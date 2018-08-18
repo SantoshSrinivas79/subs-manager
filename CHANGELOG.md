@@ -1,5 +1,16 @@
 # Change Log
 
+### v1.7.0
+2018-August-18
+
+* Remove deprecated deps dependency.
+* Remove underscore dependency.
+* Convert SubsManager to a class.
+* Migrate to ES6.
+* Update all test files.
+* Apply all default Meteor ESLint rules (Meteor, airbnb, import etc.).
+* Bump all dependencies.
+
 ### v1.6.4
 2016-March-21
 
