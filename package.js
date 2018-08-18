@@ -14,7 +14,7 @@ Package.on_use(function (api) {
 Package.on_test(function (api) {
   configurePackage(api);
 
-  api.use(['tinytest', 'mongo-livedata', 'reactive-dict', 'ecmascript', 'subs-manager'], ['client', 'server']);
+  api.use(['tinytest', 'mongo-livedata', 'reactive-dict', 'ecmascript', 'thetcr:subs-manager'], ['client', 'server']);
   api.add_files([
     'tests/init.js',
   ], ['server', 'client']);
@@ -28,7 +28,7 @@ Package.on_test(function (api) {
 
 function configurePackage(api) {
   if (api.versionsFrom) {
-    api.versionsFrom('METEOR@0.9.0');
+    api.versionsFrom('1.4');
   }
 
   api.use(['tracker', 'ejson', 'ecmascript'], ['client', 'server']);
