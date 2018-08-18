@@ -1,11 +1,17 @@
+import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
+import { Tinytest } from 'meteor/tinytest';
+import {_helpers} from '../lib/_helpers';
+import SubsManager from '../lib/sub_manager';
+
 Tinytest.addAsync('subs with error - mix of error and non error', function(test, done) {
     const sm = new SubsManager();
-    const subscribeToErrorOne = _.once(function() {
+    const subscribeToErrorOne = _helpers.runOnce(function() {
         return sm.subscribe('error-one');
     });
-    Deps.autorun(function(c) {
-      let status = subscribeToErrorOne();
-      status = sm.subscribe('posts');
+    Tracker.autorun(function(c) {
+      subscribeToErrorOne();
+      const status = sm.subscribe('posts');
     if(status.ready()) {
       sm.clear();
       c.stop();
@@ -16,13 +22,13 @@ Tinytest.addAsync('subs with error - mix of error and non error', function(test,
 
 Tinytest.addAsync('subs with error - with existing ready callback', function(test, done) {
     const sm = new SubsManager();
-    const subscribeToErrorOne = _.once(function() {
+    const subscribeToErrorOne = _helpers.runOnce(function() {
         return sm.subscribe('error-one', function() {
         });
     });
-    Deps.autorun(function(c) {
-      let status = subscribeToErrorOne();
-      status = sm.subscribe('posts');
+    Tracker.autorun(function(c) {
+      subscribeToErrorOne();
+      const status = sm.subscribe('posts');
     if(status.ready()) {
       sm.clear();
       c.stop();
@@ -33,15 +39,15 @@ Tinytest.addAsync('subs with error - with existing ready callback', function(tes
 
 Tinytest.addAsync('subs with error - with existing onReady', function(test, done) {
     const sm = new SubsManager();
-    const subscribeToErrorOne = _.once(function() {
+    const subscribeToErrorOne = _helpers.runOnce(function() {
         return sm.subscribe('error-one', {
-            onReady: function() {
+            onReady() {
             }
         });
     });
-    Deps.autorun(function(c) {
-      let status = subscribeToErrorOne();
-      status = sm.subscribe('posts');
+    Tracker.autorun(function(c) {
+      subscribeToErrorOne();
+      const status = sm.subscribe('posts');
     if(status.ready()) {
       sm.clear();
       c.stop();
@@ -53,16 +59,16 @@ Tinytest.addAsync('subs with error - with existing onReady', function(test, done
 Tinytest.addAsync('subs with error - with existing onError', function(test, done) {
     const sm = new SubsManager();
     let called = false;
-    const subscribeToErrorOne = _.once(function() {
+    const subscribeToErrorOne = _helpers.runOnce(function() {
         return sm.subscribe('error-one', {
-            onError: function() {
+            onError() {
                 called = true;
             }
         });
     });
-    Deps.autorun(function(c) {
-      let status = subscribeToErrorOne();
-      status = sm.subscribe('posts');
+    Tracker.autorun(function(c) {
+      subscribeToErrorOne();
+      const status = sm.subscribe('posts');
     if(status.ready()) {
       test.isTrue(called);
 
@@ -75,12 +81,12 @@ Tinytest.addAsync('subs with error - with existing onError', function(test, done
 
 Tinytest.addAsync('subs with error - with some args', function(test, done) {
     const sm = new SubsManager();
-    const subscribeToErrorOne = _.once(function() {
+    const subscribeToErrorOne = _helpers.runOnce(function() {
         return sm.subscribe('error-one', "args");
     });
-    Deps.autorun(function(c) {
-      let status = subscribeToErrorOne();
-      status = sm.subscribe('posts');
+    Tracker.autorun(function(c) {
+      subscribeToErrorOne();
+      const status = sm.subscribe('posts');
     if(status.ready()) {
       sm.clear();
       c.stop();
@@ -91,10 +97,10 @@ Tinytest.addAsync('subs with error - with some args', function(test, done) {
 
 Tinytest.addAsync('subs with error - just the error sub', function(test, done) {
     const sm = new SubsManager();
-    const subscribeToErrorOne = _.once(function() {
+    _helpers.runOnce(function() {
         return sm.subscribe('error-one');
     });
-    const c = Deps.autorun(function() {
+    const c = Tracker.autorun(function() {
         const status = sm.subscribe('error-one');
         if (status.ready()) {
             test.fail("This should not pass!");

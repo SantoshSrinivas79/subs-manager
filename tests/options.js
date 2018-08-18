@@ -1,3 +1,7 @@
+import { Meteor } from 'meteor/meteor';
+import { Tinytest } from 'meteor/tinytest';
+import SubsManager from '../lib/sub_manager';
+
 Tinytest.add('options cacheLimit - exceed', function(test) {
     const sm = new SubsManager({cacheLimit: 2});
     sm._addSub(['posts']);

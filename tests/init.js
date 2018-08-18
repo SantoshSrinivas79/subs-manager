@@ -1,7 +1,11 @@
-Posts = new Meteor.Collection('posts');
-PostsOnlyAllowed = new Meteor.Collection('posts-only-allowed');
-Comments = new Meteor.Collection('comments');
-Points = new Meteor.Collection('points');
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
+
+export const Posts = new Mongo.Collection('posts');
+export const PostsOnlyAllowed = new Mongo.Collection('posts-only-allowed');
+export const Comments = new Mongo.Collection('comments');
+export const Points = new Mongo.Collection('points');
 
 if(Meteor.isServer) {
 
@@ -10,7 +14,7 @@ if(Meteor.isServer) {
   });
 
   Meteor.publish('postsOnlyAllowed', function() {
-    if(PostsOnlyAllowed._allowed) {
+    if(PostsOnlyAllowed.allow) {
       return PostsOnlyAllowed.find();
     } else {
       this.ready();
@@ -22,22 +26,25 @@ if(Meteor.isServer) {
   });
 
   Meteor.publish('singlePoint', function(id) {
-    return Points.find(id);
+      check(id, String);
+      return Points.find(id);
   });
 
-  Meteor.publish('error-one', function(id) {
-    throw new Meteor.Error(400, "dddd");
+  Meteor.publish('error-one', function(id = "") {
+      check(id, String);
+    throw new Meteor.Error("400", "dddd");
   });
 
   // using this method since PhantomJS does have support setTimeout
   Meteor.methods({
-    "wait": function(millis) {
-      Meteor.wrapAsync(function(done) {
+    "wait"(millis) {
+        check(millis, Number);
+        Meteor.wrapAsync(function(done) {
         setTimeout(done, millis);
       })();
     },
 
-    "init": function() {
+    "init"() {
       Posts.remove({});
       Comments.remove({});
       Points.remove({});
@@ -51,8 +58,9 @@ if(Meteor.isServer) {
       PostsOnlyAllowed.insert({_id: "one"});
     },
 
-    "postsOnlyAllowed.allow": function(allowed) {
-      PostsOnlyAllowed._allowed = allowed;
+    "postsOnlyAllowed.allow"(allowed) {
+        check(allowed, Boolean);
+        PostsOnlyAllowed.allow = allowed;
     }
   });
 }
