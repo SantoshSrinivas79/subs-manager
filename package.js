@@ -13,7 +13,7 @@ Package.on_use(function (api) {
 });
 
 Package.on_test(function (api) {
-  api.use(['ecmascript', 'tinytest', 'mongo-livedata', 'reactive-dict', 'thetcr:subs-manager'], ['client', 'server']);
+  api.use(['ecmascript', 'tinytest', 'mongo', 'check', 'reactive-dict', 'thetcr:subs-manager'], ['client', 'server']);
   api.add_files([
     'tests/init.js',
   ], ['server', 'client']);
