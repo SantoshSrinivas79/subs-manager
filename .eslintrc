@@ -1,0 +1,43 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true
+  },
+  "plugins": [
+    "meteor",
+    "import"
+  ],
+  "extends": [
+    "airbnb",
+    "@meteorjs/eslint-config-meteor",
+    "plugin:meteor/recommended",
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true,
+    "meteor": true
+  },
+  "rules": {
+    "object-shorthand": [
+      "error",
+      "always",
+      {
+        "avoidQuotes": false
+      }
+    ],
+    "meteor/eventmap-params": [
+      "error",
+      {
+        "eventParamName": "event",
+        "templateInstanceParamName": "instance"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": "meteor"
+  }
+}
