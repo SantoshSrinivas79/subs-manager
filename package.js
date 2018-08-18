@@ -6,15 +6,14 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  configurePackage(api);
-
-  api.export(['SubsManager']);
+    api.versionsFrom('1.4');
+    api.use(['tracker', 'ejson', 'ecmascript'], ['client', 'server']);
+    api.use('staringatlights:fast-render@3.0.4', 'client', { weak: true });
+    api.mainModule('lib/sub_manager.js', ['client', 'server']);
 });
 
 Package.on_test(function (api) {
-  configurePackage(api);
-
-  api.use(['tinytest', 'mongo-livedata', 'reactive-dict', 'ecmascript', 'thetcr:subs-manager'], ['client', 'server']);
+  api.use(['ecmascript', 'tinytest', 'mongo-livedata', 'reactive-dict', 'thetcr:subs-manager'], ['client', 'server']);
   api.add_files([
     'tests/init.js',
   ], ['server', 'client']);
@@ -25,16 +24,3 @@ Package.on_test(function (api) {
     'tests/error.js',
   ], ['client']);
 });
-
-function configurePackage(api) {
-  if (api.versionsFrom) {
-    api.versionsFrom('1.4');
-  }
-
-  api.use(['tracker', 'ejson', 'ecmascript'], ['client', 'server']);
-  api.use('staringatlights:fast-render@3.0.4', 'client', { weak: true });
-
-  api.add_files([
-    'lib/sub_manager.js',
-  ], ['client', 'server']);
-}
