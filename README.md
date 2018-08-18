@@ -1,9 +1,7 @@
-# SubsManager [![Build Status](https://travis-ci.org/thetcr/subs-manager.svg?branch=master)](https://travis-ci.org/kadirahq/subs-manager)
+# SubsManager [![Build Status](https://travis-ci.org/thetcr/subs-manager.svg?branch=master)](https://travis-ci.org/thetcr/subs-manager)
 
 ####  Subscriptions Manager for Meteor
 This is a continuation of the original kadirahq subs-manager.
-
-####  Subscriptions Manager for Meteor
 
 This is a general-purpose subscriptions manager for Meteor. You can use Subscription Manager to cache subscriptions in the client side. This will help you to reduce the CPU usage of your app and improve the client side experience.
 
