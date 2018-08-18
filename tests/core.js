@@ -6,7 +6,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import SubsManager from '../lib/sub_manager';
 import {Posts, Comments, Points, PostsOnlyAllowed} from "./init";
 
-export const session = new ReactiveDict();
+const session = new ReactiveDict();
 
 Tinytest.addAsync('core - init', function(test, done) {
   Meteor.call('init', done);

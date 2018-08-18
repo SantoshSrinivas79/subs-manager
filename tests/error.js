@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Tinytest } from 'meteor/tinytest';
-import {_helpers} from '../lib/_helpers';
+import _helpers from '../lib/_helpers';
 import SubsManager from '../lib/sub_manager';
 
 Tinytest.addAsync('subs with error - mix of error and non error', function(test, done) {
