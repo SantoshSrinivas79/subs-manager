@@ -1,8 +1,8 @@
 Package.describe({
   summary: 'Subscriptions Manager for Meteor',
-  version: '1.6.4_3',
-  git: 'https://github.com/simsim0709/subs-manager.git',
-  name: 'subs-manager',
+  version: '1.7.0',
+  git: 'https://github.com/THETCR/subs-manager.git',
+  name: 'thetcr:subs-manager',
 });
 
 Package.on_use(function (api) {
@@ -14,7 +14,7 @@ Package.on_use(function (api) {
 Package.on_test(function (api) {
   configurePackage(api);
 
-  api.use(['tinytest', 'mongo-livedata', 'session'], ['client', 'server']);
+  api.use(['tinytest', 'mongo-livedata', 'reactive-dict', 'ecmascript', 'subs-manager'], ['client', 'server']);
   api.add_files([
     'tests/init.js',
   ], ['server', 'client']);
@@ -31,7 +31,7 @@ function configurePackage(api) {
     api.versionsFrom('METEOR@0.9.0');
   }
 
-  api.use(['deps', 'underscore', 'ejson'], ['client', 'server']);
+  api.use(['tracker', 'ejson', 'ecmascript'], ['client', 'server']);
   api.use('staringatlights:fast-render@3.0.4', 'client', { weak: true });
 
   api.add_files([
